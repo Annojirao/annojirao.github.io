@@ -13,7 +13,7 @@
 
     <script>
         function buildFileList(path, element) {
-            fetch(path + '/_README.txt')  // Assuming each directory has a _README.txt file
+            fetch(path + '/_README.txt')  // Assuming each subdirectory has a _README.txt file
                 .then(response => response.text())
                 .then(data => {
                     const fileList = data.split('\n').filter(file => file.trim().length > 0);
@@ -31,7 +31,7 @@
                 .catch(error => console.error('Error:', error));
         }
 
-        buildFileList('.', 'fileList');  // Start with the current directory
+        buildFileList('design_systems', 'fileList');  // Start with the design_systems directory
     </script>
 </body>
 </html>
