@@ -1,9 +1,37 @@
 <!DOCTYPE html>
-<html>
-    <head>
-	
-    </head>
-    <body>
-      <p>home page</p>
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your System Design Resources</title>
+</head>
+<body>
+    <h1>Welcome to Your System Design Resources</h1>
+    <p>This is the home page. Explore the different topics below:</p>
+
+    <ul id="fileList"></ul>
+
+    <script>
+        function buildFileList(path, element) {
+            fetch(path + '/_README.txt')  // Assuming each directory has a _README.txt file
+                .then(response => response.text())
+                .then(data => {
+                    const fileList = data.split('\n').filter(file => file.trim().length > 0);
+
+                    const ul = document.getElementById(element);
+                    fileList.forEach(file => {
+                        const li = document.createElement('li');
+                        const link = document.createElement('a');
+                        link.href = path + '/' + file;
+                        link.textContent = file.replace('.html', '');  // Display file name without .html extension
+                        li.appendChild(link);
+                        ul.appendChild(li);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        buildFileList('.', 'fileList');  // Start with the current directory
+    </script>
+</body>
 </html>
